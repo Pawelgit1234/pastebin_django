@@ -34,8 +34,13 @@ class Paste(models.Model):
 	date = models.DateTimeField('Date and Time', default=timezone.now)
 	views = models.PositiveIntegerField('Views', default=0)
 
+	def __str__(self):
+		if bool(self.title):
+			return self.title
+		return self.text[:10]
+
 	class Meta:
-		db_table = "paste"
+		db_table = "pastes"
 		ordering = ['-date']
 		verbose_name = "Paste"
 		verbose_name_plural = "Pastes"
@@ -49,7 +54,19 @@ class Paste(models.Model):
 		super().save(*args, **kwargs)
 
 
-# Todo: Comment
 class Comment(models.Model):
 	""" for commenting pastes """
-	pass
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+	paste = models.ForeignKey(Paste, on_delete=models.CASCADE, related_name='comments')
+	text = models.TextField('Text', max_length=200)
+	date = models.DateTimeField('Date and Time', default=timezone.now)
+	reply_to = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+
+	def __str__(self):
+		return self.text[:10]
+
+	class Meta:
+		db_table = "comments"
+		ordering = ['-date']
+		verbose_name = "Comment"
+		verbose_name_plural = "Comments"
