@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><b>{{ paste.title }}</b></h5>
+                    <p>{{ paste.text }}</p>
+                    <div class="mt-auto">
+                        <p class="card-text text-muted mb-0">{{ paste.date|date:"d.m.Y H:i" }} — {{ paste.views }} views</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <h5>{{ paste.comments.all|length }} Comments</h5>
+                    <div class="comments">
+                        {% if paste.comments.all %}
+                            {% for comment in paste.comments.all %}
+                                {% if not comment.reply_to %}
+                                <hr>
+                                <div class="comment">
+                                    <p><b>{{ comment.user.username }}</b> {{ comment.date|date:"d.m.Y H:i" }}</p>
+                                    <p>{{ comment.text }}</p>
+                                    {% for reply in comment.replies.all %}
+                                        <div class="reply" style="margin-left: 20px;">
+                                            <p><b>{{ reply.user.username }}</b> {{ reply.date|date:"d.m.Y H:i" }}</p>
+                                            <p>{{ reply.text }}</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

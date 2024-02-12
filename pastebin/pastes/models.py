@@ -24,7 +24,7 @@ class Paste(models.Model):
 	]
 
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pastes')
-	title = models.CharField('Title', max_length=100, blank=True)
+	title = models.CharField('Title', max_length=100)
 	text = models.TextField('Text', max_length=10000)
 	delete_option = models.CharField('Delete Option', choices=delete_options, default='NEVER', max_length=20)
 	delete_at = models.DateTimeField('Delete At', blank=True, null=True)
@@ -60,7 +60,7 @@ class Comment(models.Model):
 	paste = models.ForeignKey(Paste, on_delete=models.CASCADE, related_name='comments')
 	text = models.TextField('Text', max_length=200)
 	date = models.DateTimeField('Date and Time', default=timezone.now)
-	reply_to = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+	reply_to = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
 
 	def __str__(self):
 		return self.text[:10]
