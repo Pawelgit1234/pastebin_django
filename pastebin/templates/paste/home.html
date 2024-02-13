@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><a class="paste-link" href="{% url 'detail' paste.slug %}"><b>{{ paste.title }}</b></a></h5>
                     <div class="mt-auto">
-                        <p class="card-text text-muted mb-0">{{ paste.date|date:"d.m.Y H:i" }} — {{ paste.views }} views</p>
+                        <p class="card-text text-muted mb-0">{{ paste.date|date:"d.m.Y H:i" }} — {{ paste.views.count }} views</p>
                     </div>
                 </div>
             </div>

@@ -32,7 +32,6 @@ class Paste(models.Model):
 	status = models.CharField('Paste Status', choices=PASTE_STATUS_CHOICES, default=PUBLIC, max_length=20)
 	slug = models.SlugField('Slug', max_length=10, blank=True)
 	date = models.DateTimeField('Date and Time', default=timezone.now)
-	views = models.PositiveIntegerField('Views', default=0)
 
 	def __str__(self):
 		if bool(self.title):
@@ -52,6 +51,16 @@ class Paste(models.Model):
 			hash_string = f"{self.user.username}-{self.text}-{timezone.now()}"
 			self.slug = generate_hash(hash_string)[:10]
 		super().save(*args, **kwargs)
+
+
+class PasteView(models.Model):
+	""" view from a paste """
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='views')
+	paste = models.ForeignKey(Paste, on_delete=models.CASCADE, related_name='views')
+	viewed_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta:
+		unique_together = ('user', 'paste')
 
 
 class Comment(models.Model):
