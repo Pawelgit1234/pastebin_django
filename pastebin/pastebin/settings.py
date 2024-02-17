@@ -43,7 +43,8 @@ INSTALLED_APPS = [
 
     # My apps
     'pastes',
-    'utils'
+    'utils',
+    'search'
 ]
 
 MIDDLEWARE = [

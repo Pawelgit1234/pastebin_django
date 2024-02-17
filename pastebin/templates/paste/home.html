@@ -4,16 +4,18 @@
 <div class="container">
     <div class="row">
         {% for paste in pastes %}
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><a class="paste-link" href="{% url 'detail' paste.slug %}"><b>{{ paste.title }}</b></a></h5>
-                    <div class="mt-auto">
-                        <p class="card-text text-muted mb-0">{{ paste.date|date:"d.m.Y H:i" }} — {{ paste.views.count }} views</p>
+            {% if paste.status == 'public' %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><a class="paste-link" href="{% url 'detail' paste.slug %}"><b>{{ paste.title }}</b></a></h5>
+                            <div class="mt-auto">
+                                <p class="card-text text-muted mb-0">{{ paste.date|date:"d.m.Y H:i" }} — {{ paste.views.count }} views</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            {% endif %}
         {% endfor %}
     </div>
 </div>
