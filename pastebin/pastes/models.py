@@ -54,7 +54,7 @@ class Paste(models.Model):
 
 
 class PasteView(models.Model):
-	""" view from a paste """
+	""" view from a pastes """
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='views')
 	paste = models.ForeignKey(Paste, on_delete=models.CASCADE, related_name='views')
 	viewed_at = models.DateTimeField(auto_now_add=True)

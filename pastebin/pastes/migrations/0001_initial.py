@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': 'Paste',
                 'verbose_name_plural': 'Pastes',
-                'db_table': 'paste',
+                'db_table': 'pastes',
                 'ordering': ['-date'],
             },
         ),

@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='paste',
+            model_name='pastes',
             name='views',
             field=models.PositiveIntegerField(default=0, verbose_name='Views'),
         ),
