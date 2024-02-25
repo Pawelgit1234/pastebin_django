@@ -4,10 +4,15 @@
 {% block content %}
 <div class = "container">
   <h2>Sign up</h2>
+  <p>Already have an <a href="{% url 'login' %}">account</a></p>
   <form method="post">
     {% csrf_token %}
       {{ form|crispy }}
     <button type="submit" class="btn btn-outline-dark">Sign up</button>
   </form>
+  <br>
+  {% load socialaccount %}
+  <h2>Sign up with google</h2>
+  <a href="{% provider_login_url 'google' %}?next=/">Sign up</a>
 </div>
 {% endblock %}

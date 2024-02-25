@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from django.contrib.auth import login, get_user_model
-from .forms import SignupForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, get_user_model, logout, authenticate
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -10,10 +11,13 @@ from django.contrib import messages
 
 from utils.token import account_activation_token
 
+from .forms import SignupForm
+
+# TODO: sign up / login with google and other websites + customize
+# TODO: google Roboter test
+
 
 def signup(request):
-    # TODO: sign up / login with google and other websites
-    # TODO: google Roboter test
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
@@ -55,3 +59,29 @@ def activate(request, uidb64, token):
         return render(request, 'register/email_confirmed.html')
     else:
         return render(request, 'register/invalid_activation_link.html')
+
+
+def user_login(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, f"You are now logged in as {username}.")
+                return redirect("home")
+            else:
+                messages.warning(request, "Invalid username or password.")
+        else:
+            messages.warning(request, "Invalid username or password.")
+    form = AuthenticationForm()
+    return render(request, 'register/login.html', {'form': form})
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    messages.success(request, "Logout successfully!")
+    return redirect('home')
