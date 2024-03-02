@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django_recaptcha',
 
     # My apps
     'pastes',
@@ -173,3 +174,6 @@ SITE_ID = 2
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get("GOOGLE_RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.environ.get("GOOGLE_RECAPTCHA_PRIVATE_KEY")
