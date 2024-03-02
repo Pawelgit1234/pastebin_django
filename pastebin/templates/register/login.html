@@ -13,6 +13,10 @@
   <br>
   {% load socialaccount %}
   <h2>Login with google</h2>
-  <a href="{% provider_login_url 'google' %}?next=/">Login</a>
+  <form method="get" action="{% provider_login_url 'google' %}?next=/">
+    <button type="submit" class="login-with-google-btn" >
+      Sign in with Google
+    </button>
+  </form>
 </div>
 {% endblock %}

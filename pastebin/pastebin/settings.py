@@ -74,7 +74,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'templates'
+            'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -171,5 +171,5 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SITE_ID = 2
 
-LOGIN_REDIRECT = '/'
-LOGOUT_REDIRECT = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

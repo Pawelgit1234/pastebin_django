@@ -13,8 +13,10 @@ from utils.token import account_activation_token
 
 from .forms import SignupForm
 
-# TODO: sign up / login with google and other websites + customize
 # TODO: google Roboter test
+# TODO: deleting pastes
+# TODO: Redis
+# TODO: DRF-API
 
 
 def signup(request):
