@@ -13,7 +13,6 @@ from utils.token import account_activation_token
 
 from .forms import SignupForm
 
-# TODO: google Roboter test
 # TODO: deleting pastes
 # TODO: Redis
 # TODO: DRF-API
